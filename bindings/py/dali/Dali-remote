@@ -25,8 +25,8 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print 'Functions:'
   print '  void init(string remote_url, string capabilities)'
   print '  void resize(string resolution)'
-  print '  string take(string output_path,  options)'
-  print '  double compare(string standard_path, string candidate_path, string result_path)'
+  print '  string take(string save_path,  options)'
+  print '  double compare(string image1_path, string image2_path, string result_path)'
   print '  void stop()'
   print ''
   sys.exit(0)

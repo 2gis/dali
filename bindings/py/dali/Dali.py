@@ -33,19 +33,19 @@ class Iface:
     """
     pass
 
-  def take(self, output_path, options):
+  def take(self, save_path, options):
     """
     Parameters:
-     - output_path
+     - save_path
      - options
     """
     pass
 
-  def compare(self, standard_path, candidate_path, result_path):
+  def compare(self, image1_path, image2_path, result_path):
     """
     Parameters:
-     - standard_path
-     - candidate_path
+     - image1_path
+     - image2_path
      - result_path
     """
     pass
@@ -119,19 +119,19 @@ class Client(Iface):
     self._iprot.readMessageEnd()
     return
 
-  def take(self, output_path, options):
+  def take(self, save_path, options):
     """
     Parameters:
-     - output_path
+     - save_path
      - options
     """
-    self.send_take(output_path, options)
+    self.send_take(save_path, options)
     return self.recv_take()
 
-  def send_take(self, output_path, options):
+  def send_take(self, save_path, options):
     self._oprot.writeMessageBegin('take', TMessageType.CALL, self._seqid)
     args = take_args()
-    args.output_path = output_path
+    args.save_path = save_path
     args.options = options
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -151,21 +151,21 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "take failed: unknown result");
 
-  def compare(self, standard_path, candidate_path, result_path):
+  def compare(self, image1_path, image2_path, result_path):
     """
     Parameters:
-     - standard_path
-     - candidate_path
+     - image1_path
+     - image2_path
      - result_path
     """
-    self.send_compare(standard_path, candidate_path, result_path)
+    self.send_compare(image1_path, image2_path, result_path)
     return self.recv_compare()
 
-  def send_compare(self, standard_path, candidate_path, result_path):
+  def send_compare(self, image1_path, image2_path, result_path):
     self._oprot.writeMessageBegin('compare', TMessageType.CALL, self._seqid)
     args = compare_args()
-    args.standard_path = standard_path
-    args.candidate_path = candidate_path
+    args.image1_path = image1_path
+    args.image2_path = image2_path
     args.result_path = result_path
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
@@ -261,7 +261,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = take_result()
-    result.success = self._handler.take(args.output_path, args.options)
+    result.success = self._handler.take(args.save_path, args.options)
     oprot.writeMessageBegin("take", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -272,7 +272,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = compare_result()
-    result.success = self._handler.compare(args.standard_path, args.candidate_path, args.result_path)
+    result.success = self._handler.compare(args.image1_path, args.image2_path, args.result_path)
     oprot.writeMessageBegin("compare", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -511,18 +511,18 @@ class resize_result:
 class take_args:
   """
   Attributes:
-   - output_path
+   - save_path
    - options
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'output_path', None, None, ), # 1
+    (1, TType.STRING, 'save_path', None, None, ), # 1
     (2, TType.MAP, 'options', (TType.STRING,None,TType.STRING,None), None, ), # 2
   )
 
-  def __init__(self, output_path=None, options=None,):
-    self.output_path = output_path
+  def __init__(self, save_path=None, options=None,):
+    self.save_path = save_path
     self.options = options
 
   def read(self, iprot):
@@ -536,7 +536,7 @@ class take_args:
         break
       if fid == 1:
         if ftype == TType.STRING:
-          self.output_path = iprot.readString();
+          self.save_path = iprot.readString();
         else:
           iprot.skip(ftype)
       elif fid == 2:
@@ -560,9 +560,9 @@ class take_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('take_args')
-    if self.output_path is not None:
-      oprot.writeFieldBegin('output_path', TType.STRING, 1)
-      oprot.writeString(self.output_path)
+    if self.save_path is not None:
+      oprot.writeFieldBegin('save_path', TType.STRING, 1)
+      oprot.writeString(self.save_path)
       oprot.writeFieldEnd()
     if self.options is not None:
       oprot.writeFieldBegin('options', TType.MAP, 2)
@@ -652,21 +652,21 @@ class take_result:
 class compare_args:
   """
   Attributes:
-   - standard_path
-   - candidate_path
+   - image1_path
+   - image2_path
    - result_path
   """
 
   thrift_spec = (
     None, # 0
-    (1, TType.STRING, 'standard_path', None, None, ), # 1
-    (2, TType.STRING, 'candidate_path', None, None, ), # 2
+    (1, TType.STRING, 'image1_path', None, None, ), # 1
+    (2, TType.STRING, 'image2_path', None, None, ), # 2
     (3, TType.STRING, 'result_path', None, None, ), # 3
   )
 
-  def __init__(self, standard_path=None, candidate_path=None, result_path=None,):
-    self.standard_path = standard_path
-    self.candidate_path = candidate_path
+  def __init__(self, image1_path=None, image2_path=None, result_path=None,):
+    self.image1_path = image1_path
+    self.image2_path = image2_path
     self.result_path = result_path
 
   def read(self, iprot):
@@ -680,12 +680,12 @@ class compare_args:
         break
       if fid == 1:
         if ftype == TType.STRING:
-          self.standard_path = iprot.readString();
+          self.image1_path = iprot.readString();
         else:
           iprot.skip(ftype)
       elif fid == 2:
         if ftype == TType.STRING:
-          self.candidate_path = iprot.readString();
+          self.image2_path = iprot.readString();
         else:
           iprot.skip(ftype)
       elif fid == 3:
@@ -703,13 +703,13 @@ class compare_args:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('compare_args')
-    if self.standard_path is not None:
-      oprot.writeFieldBegin('standard_path', TType.STRING, 1)
-      oprot.writeString(self.standard_path)
+    if self.image1_path is not None:
+      oprot.writeFieldBegin('image1_path', TType.STRING, 1)
+      oprot.writeString(self.image1_path)
       oprot.writeFieldEnd()
-    if self.candidate_path is not None:
-      oprot.writeFieldBegin('candidate_path', TType.STRING, 2)
-      oprot.writeString(self.candidate_path)
+    if self.image2_path is not None:
+      oprot.writeFieldBegin('image2_path', TType.STRING, 2)
+      oprot.writeString(self.image2_path)
       oprot.writeFieldEnd()
     if self.result_path is not None:
       oprot.writeFieldBegin('result_path', TType.STRING, 3)

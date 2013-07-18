@@ -30,27 +30,28 @@ class DaliCore(object):
         w, h = tuple(resolution.split('x'))
         self.remote.set_window_size(int(w), int(h))
 
-    def take(self, path_to_save, options):
+    def take(self, save_path, options):
         ### @todo implement options
         ### @fixme ugly sleeps
 
         time.sleep(1)
         for selector in options["hide_elements"].split(","):
             self.remote.execute_script(Scripts.hide_elements % selector)
-            time.sleep(1)
 
         self.remote.execute_script(Scripts.disable_animation)
         time.sleep(1)
 
-        filename = "%s/dali-%s-%s.png" % (path_to_save, time.time(), self.resolution)
+        filename = "%s/dali-%s-%s.png" % (save_path, time.time(), self.resolution)
         self.remote.get_screenshot_as_file(filename)
 
         return filename
 
-    def compare(self, standard_img_path, candidate_img_path, result_img_path):
-        return diff(standard_img_path, candidate_img_path, result_img_path)
+    @staticmethod
+    def compare(image1_path, image2_path, result_path):
+        return diff(image1_path, image2_path, result_path)
 
-    def stop(self):
+    @staticmethod
+    def stop():
         ### @todo graceful shutdown
         import sys
 

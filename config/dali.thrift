@@ -7,12 +7,12 @@ service Dali {
         1: string resolution
     )
     string take(
-        1: string output_path
+        1: string save_path
         2: map<string, string> options
     )
     double compare(
-        1: string standard_path
-        2: string candidate_path
+        1: string image1_path
+        2: string image2_path
         3: string result_path
     )
     void stop()
