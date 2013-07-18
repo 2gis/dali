@@ -32,8 +32,15 @@ class DaliCore(object):
 
     def take(self, path_to_save, options):
         ### @todo implement options
+        ### @fixme ugly sleeps
+        import time
+
+        time.sleep(1)
+        for selector in options["hide_elements"].split(","):
+            self.remote.execute_script(Scripts.hide_elements % selector)
+            time.sleep(1)
+
         self.remote.execute_script(Scripts.disable_animation)
-        ### @fixme ugly sleep
         time.sleep(1)
 
         filename = "%s/dali-%s-%s.png" % (path_to_save, time.time(), self.resolution)

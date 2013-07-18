@@ -31,7 +31,10 @@ class ExampleTestCase(unittest.TestCase):
             scenario=callback,
             scenario_args=self.driver,
             path_to_save="/tmp",
-            options={},
+            options={
+                "disable_animation": "true",
+                "hide_elements": ".dg-start-banner"
+            }
         )
 
         file2 = dali.take_screenshot(
@@ -39,7 +42,10 @@ class ExampleTestCase(unittest.TestCase):
             scenario=callback,
             scenario_args=self.driver,
             path_to_save="/tmp",
-            options={},
+            options={
+                "disable_animation": "true",
+                "hide_elements": ".dg-start-banner"
+            }
         )
 
         diff = dali.compare_images(file1, file2, "/tmp/out.png")

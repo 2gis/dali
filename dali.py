@@ -19,6 +19,7 @@ class Dali(object):
         """
         try:
             subprocess.Popen([os.path.dirname(os.path.abspath(__file__)) + "/backend/dali_server.py"])
+            ### @todo dynamic port selection (add param to dali_server.py --^^^^^^^^^^this^^^^^^^^^^)
             ### @todo add timeout
             while not is_connectable(30303):
                 time.sleep(0.1)

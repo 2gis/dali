@@ -16,3 +16,10 @@ class Scripts(object):
         }";
         document.getElementsByTagName("head")[0].appendChild(_s);
     """
+
+    hide_elements = """
+        var _n = document.querySelectorAll('%s');
+        for (var i = 0; i < _n.length; i++) {
+            _n[i].style.display = 'none';
+        }
+    """
