@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import socket
 import subprocess
 
 from selenium.webdriver import Remote
@@ -8,8 +9,18 @@ from thrift.Thrift import TException
 from thrift.transport import TSocket, TTransport
 from thrift.protocol import TBinaryProtocol
 
-from backend.thrift_py.dali import Dali as DaliThrift
-from backend.supplement.utils import is_connectable
+from bindings.py.dali import Dali as DaliThrift
+
+
+def is_connectable(port):
+    try:
+        socket_ = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket_.settimeout(1)
+        socket_.connect(("localhost", port))
+        socket_.close()
+        return True
+    except socket.error:
+        return False
 
 
 class Dali(object):
@@ -18,8 +29,8 @@ class Dali(object):
         :type driver: Remote
         """
         try:
-            subprocess.Popen([os.path.dirname(os.path.abspath(__file__)) + "/backend/dali_server.py"])
-            ### @todo dynamic port selection (add param to dali_server.py --^^^^^^^^^^this^^^^^^^^^^)
+            subprocess.Popen([os.path.dirname(os.path.abspath(__file__)) + "/core/server/dali_server.py"])
+            ### @todo dynamic port selection (add param to dali_server.py - ^^^^^^^^^^^^this^^^^^^^^^^^)
             ### @todo add timeout
             while not is_connectable(30303):
                 time.sleep(0.1)

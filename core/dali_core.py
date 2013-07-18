@@ -5,8 +5,8 @@ from selenium.webdriver import Remote
 from selenium.webdriver.remote.errorhandler import ErrorHandler
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
-from backend.comparison.simple import diff
-from backend.supplement.scripts import Scripts
+from core.compare.pixel_diff import diff
+from core.supplement.scripts import Scripts
 
 
 class DaliRemote(Remote):
@@ -33,7 +33,6 @@ class DaliCore(object):
     def take(self, path_to_save, options):
         ### @todo implement options
         ### @fixme ugly sleeps
-        import time
 
         time.sleep(1)
         for selector in options["hide_elements"].split(","):

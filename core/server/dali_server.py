@@ -1,16 +1,24 @@
 #!/usr/bin/env python
 
+import socket
+
 from thrift.transport import TSocket, TTransport
 from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 
-from thrift_py.dali import Dali
-from backend.core.dali_core import DaliCore
+from bindings.py.dali import Dali
+from core.dali_core import DaliCore
 
 handler = DaliCore()
 processor = Dali.Processor(handler)
+### @todo pass port as a parameter
 transport = TSocket.TServerSocket(port=30303)
 tfactory = TTransport.TBufferedTransportFactory()
 pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
-server.serve()
+
+try:
+    server.serve()
+except socket.error:
+    ### @todo error handling. Maybe specific exit code?
+    print "Ooops"
