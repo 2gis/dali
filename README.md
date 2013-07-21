@@ -4,7 +4,7 @@ Selenium-based tool for capturing and comparing screenshots.
 ### Requirements
 ```bash
 $ apt-get install python-opencv python-numpy
-$ pip install selenium
+$ pip install thrift==0.9.0 selenium==2.33.0
 ```
 
 ### Create custom bindings

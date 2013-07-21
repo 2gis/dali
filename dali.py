@@ -29,8 +29,11 @@ class Dali(object):
         :type driver: Remote
         """
         try:
-            subprocess.Popen([os.path.dirname(os.path.abspath(__file__)) + "/core/server/dali_server.py"])
-            ### @todo dynamic port selection (add param to dali_server.py - ^^^^^^^^^^^^this^^^^^^^^^^^)
+            ### @todo dynamic port selection
+            subprocess.Popen([
+                os.path.dirname(os.path.abspath(__file__)) + "/core/server/dali_server.py",
+                "--port=30303"
+            ])
             ### @todo add timeout
             while not is_connectable(30303):
                 time.sleep(0.1)
