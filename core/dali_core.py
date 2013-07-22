@@ -31,14 +31,15 @@ class DaliCore(object):
         self.remote.set_window_size(int(w), int(h))
 
     def take(self, save_path, options):
-        ### @todo implement options
         ### @fixme ugly sleeps
-
+        ### @todo more common options
         time.sleep(1)
-        for selector in options["hide_elements"].split(","):
-            self.remote.execute_script(Scripts.hide_elements % selector)
+        if "hide_elements" in options:
+            for selector in options["hide_elements"].split(","):
+                self.remote.execute_script(Scripts.hide_elements % selector)
 
-        self.remote.execute_script(Scripts.disable_animation)
+        if "disable_animation" in options and options["disable_animation"] == "True":
+            self.remote.execute_script(Scripts.disable_animation)
         time.sleep(1)
 
         filename = "%s/dali-%s-%s.png" % (save_path, time.time(), self.resolution)

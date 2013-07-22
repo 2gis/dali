@@ -32,7 +32,7 @@ class ExampleTestCase(unittest.TestCase):
             scenario_args=self.driver,
             path_to_save="/tmp",
             options={
-                "disable_animation": "true",
+                "disable_animation": "True",
                 "hide_elements": ".dg-start-banner"
             }
         )

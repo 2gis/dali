@@ -46,6 +46,7 @@ class Dali(object):
             self.client.init(driver.command_executor._url, json.dumps(driver.capabilities))
             self.transport.close()
         except TException, tx:
+            ### @todo error handling
             print "%s" % tx.message
 
     def __del__(self):
@@ -58,6 +59,7 @@ class Dali(object):
         self.transport.close()
 
     def take_screenshot(self, resolution, scenario=None, scenario_args=None, path_to_save=None, options={}):
+        ### @todo default directory for windows
         if not path_to_save:
             path_to_save = "/tmp"
         self.transport.open()
