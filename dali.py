@@ -1,53 +1,68 @@
-import os
-import time
 import json
+import os
 import socket
 import subprocess
+import time
 
 from selenium.webdriver import Remote
 from thrift.Thrift import TException
-from thrift.transport import TSocket, TTransport
 from thrift.protocol import TBinaryProtocol
+from thrift.transport import TSocket, TTransport
 
 from bindings.py.dali import Dali as DaliThrift
+from exceptions import DaliServerConnectionError
 
 
 def is_connectable(port):
     try:
-        socket_ = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_.settimeout(1)
-        socket_.connect(("localhost", port))
-        socket_.close()
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(1)
+        sock.connect(("localhost", port))
+        sock.close()
         return True
     except socket.error:
         return False
 
 
+def get_free_port():
+    sock = socket.socket()
+    sock.bind(('', 0))
+    port = sock.getsockname()[1]
+    sock.close()
+    return port
+
+
 class Dali(object):
+    DALI_SERVER_PATH = os.path.dirname(os.path.abspath(__file__)) + "/core/server/dali_server.py"
+    CONNECTION_TIMEOUT = 5  # in seconds
+
     def __init__(self, driver):
         """
         :type driver: Remote
         """
-        try:
-            ### @todo dynamic port selection
-            subprocess.Popen([
-                os.path.dirname(os.path.abspath(__file__)) + "/core/server/dali_server.py",
-                "--port=30303"
-            ])
-            ### @todo add timeout
-            while not is_connectable(30303):
-                time.sleep(0.1)
+        port = get_free_port()
+        subprocess.Popen([
+            self.DALI_SERVER_PATH,
+            "--port=%d" % port,
+        ])
 
-            self.transport = TSocket.TSocket("localhost", 30303)
+        t = time.time()
+        while not is_connectable(port) and time.time() - t < self.CONNECTION_TIMEOUT:
+            time.sleep(0.1)
+        if not is_connectable(port):
+            raise DaliServerConnectionError("Couldn't connect to Dali server on port %s", port)
+
+        try:
+            self.transport = TSocket.TSocket("localhost", port)
             self.transport = TTransport.TBufferedTransport(self.transport)
             protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
             self.client = DaliThrift.Client(protocol)
             self.transport.open()
             self.client.init(driver.command_executor._url, json.dumps(driver.capabilities))
             self.transport.close()
-        except TException, tx:
+        except TException, e:
             ### @todo error handling
-            print "%s" % tx.message
+            print "%s" % e.message
 
     def __del__(self):
         ### @todo graceful shutdown

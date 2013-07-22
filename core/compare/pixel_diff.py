@@ -1,5 +1,5 @@
-import numpy
 import cv
+import numpy
 
 
 def diff(img1, img2, result):
