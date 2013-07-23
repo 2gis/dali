@@ -31,7 +31,7 @@ class DaliCore(object):
         self.remote.set_window_size(int(w), int(h))
 
     def take(self, save_path, options):
-        ### @fixme ugly sleeps
+        ### @todo research and remove sleeps
         ### @todo more common options
         time.sleep(1)
         if "hide_elements" in options:

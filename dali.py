@@ -10,7 +10,7 @@ from thrift.protocol import TBinaryProtocol
 from thrift.transport import TSocket, TTransport
 
 from bindings.py.dali import Dali as DaliThrift
-from exceptions import DaliServerConnectionError
+from exceptions import *
 
 
 def is_connectable(port):
