@@ -18,7 +18,7 @@ def diff(img1, img2, result):
 
     difference = c.sum(axis=2)
     differenceNonZeroes = difference.nonzero()
-    res = float(differenceNonZeroes[0].size) / difference.size * 100
+    res = float(differenceNonZeroes[0].size) / difference.size
 
     diffNonZeroes = c.nonzero()
     positions = []
