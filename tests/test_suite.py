@@ -14,8 +14,10 @@ def suite():
     ))
 
 
-print __name__
-
-if __name__ == "__main__":
+def main():
     result = unittest.TextTestRunner(verbosity=2).run(suite())
     sys.exit(not result.wasSuccessful())
+
+
+if __name__ == "__main__":
+    main()

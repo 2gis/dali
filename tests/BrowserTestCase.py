@@ -2,8 +2,10 @@ __author__ = 'i.pavlov'
 
 import unittest
 import os
-from tests.webserver import SimpleWebServer
+import socket
 
+from tests.webserver import SimpleWebServer
+from tests.config import Config
 
 class BrowserTestCase(unittest.TestCase):
     def setUp(self):
@@ -16,8 +18,17 @@ class BrowserTestCase(unittest.TestCase):
     def tearDown(self):
         self.webserver.stop()
 
-    def _loadPage(self, name):
-        self.driver.get(self._pageURL(name))
+    def load_page(self, name):
+        self.driver.get(self.page_url(name))
 
-    def _pageURL(self, name):
-        return "http://localhost:%d/%s.html" % (self.webserver.port, name)
+    def get_local_ip(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect((Config.server, 0))
+        return s.getsockname()[0]
+
+    def page_url(self, name):
+        return "http://{address}:{port}/{page}.html".format(
+            address=self.get_local_ip(),
+            port=self.webserver.port,
+            page=name
+        )
