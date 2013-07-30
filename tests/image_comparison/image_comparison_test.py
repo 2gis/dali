@@ -6,7 +6,7 @@ import os
 from core.compare.pixel_diff import diff
 
 
-class ExampleTestCase(unittest.TestCase):
+class ImageComparisonTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
