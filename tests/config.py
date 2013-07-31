@@ -2,4 +2,4 @@ __author__ = 'i.pavlov'
 
 
 class Config(object):
-    server = 'localhost'
+    server = '10.54.19.144'

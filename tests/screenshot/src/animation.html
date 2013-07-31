@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        @keyframes anim {
+            0% {
+                left: 0%;
+            }
+            25% {
+                left: 100%;
+            }
+            50% {
+                left: 0%;
+            }
+            75% {
+                left: 100%;
+            }
+            100% {
+                left: 50%;
+            }
+        }
+
+        @-webkit-keyframes anim /* Safari and Chrome */
+        {
+            0% {
+                left: 0%;
+            }
+            25% {
+                left: 100%;
+            }
+            50% {
+                left: 0%;
+            }
+            75% {
+                left: 100%;
+            }
+            100% {
+                left: 50%;
+            }
+        }
+
+        @keyframes trans {
+            0% {
+                transform: rotate(0deg);
+                -ms-transform: rotate(0deg); /* IE 9 */
+                -webkit-transform: rotate(0deg); /* Safari and Chrome */
+            }
+            25% {
+                transform: rotate(360deg);
+                -ms-transform: rotate(360deg); /* IE 9 */
+                -webkit-transform: rotate(360deg); /* Safari and Chrome */
+            }
+            50% {
+                transform: rotate(0deg);
+                -ms-transform: rotate(0deg); /* IE 9 */
+                -webkit-transform: rotate(0deg); /* Safari and Chrome */
+            }
+            75% {
+                transform: rotate(360deg);
+                -ms-transform: rotate(360deg); /* IE 9 */
+                -webkit-transform: rotate(360deg); /* Safari and Chrome */
+            }
+            100% {
+                transform: rotate(45deg);
+                -ms-transform: rotate(45deg); /* IE 9 */
+                -webkit-transform: rotate(45deg); /* Safari and Chrome */
+            }
+        }
+
+        @-webkit-keyframes trans /* Safari and Chrome */
+        {
+            0% {
+                transform: rotate(0deg);
+                -ms-transform: rotate(0deg); /* IE 9 */
+                -webkit-transform: rotate(0deg); /* Safari and Chrome */
+            }
+            25% {
+                transform: rotate(360deg);
+                -ms-transform: rotate(360deg); /* IE 9 */
+                -webkit-transform: rotate(360deg); /* Safari and Chrome */
+            }
+            50% {
+                transform: rotate(0deg);
+                -ms-transform: rotate(0deg); /* IE 9 */
+                -webkit-transform: rotate(0deg); /* Safari and Chrome */
+            }
+            75% {
+                transform: rotate(360deg);
+                -ms-transform: rotate(360deg); /* IE 9 */
+                -webkit-transform: rotate(360deg); /* Safari and Chrome */
+            }
+            100% {
+                transform: rotate(45deg);
+                -ms-transform: rotate(45deg); /* IE 9 */
+                -webkit-transform: rotate(45deg); /* Safari and Chrome */
+            }
+        }
+
+        #animation {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            height: 100px;
+            width: 100px;
+            background: yellow;
+            animation: anim 5s;
+            -webkit-animation: anim 5s; /* Safari and Chrome */
+        }
+
+        #transition.enlarge {
+            width: 100%;
+        }
+
+        #transition {
+            position: relative;
+            top: 10px;
+            left: 0px;
+            height: 100px;
+            width: 100px;
+            background: cyan;
+            transition: width 5s;
+            /* Safari */
+            -webkit-transition: width 5s;
+        }
+
+        #transformation {
+            position: relative;
+            top: 20px;
+            left: 0px;
+            height: 100px;
+            width: 100px;
+            background: red;
+            animation: trans 5s;
+            -webkit-animation: trans 5s; /* Safari and Chrome */
+        }
+
+    </style>
+</head>
+<body>
+<div id="animation"></div>
+<div id="transition"></div>
+<div id="transformation"></div>
+<script>
+    window.runTransition = function () {
+        var transition = document.getElementById('transition');
+        transition.setAttribute("class", "enlarge");
+    }();
+</script>
+</body>
+</html>

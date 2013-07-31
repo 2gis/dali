@@ -15,8 +15,8 @@ class ImageComparisonTestCase(unittest.TestCase):
 
     def test_pixel_diff(self):
         current_directory = os.path.dirname(os.path.abspath(__file__))
-        file1 = current_directory + "/pic1.png"
-        file2 = current_directory + "/pic2.png"
+        file1 = current_directory + "/src/pic1.png"
+        file2 = current_directory + "/src/pic2.png"
 
         difference = diff(file1, file2, current_directory + "/out.png")
         self.assertEqual(0.25, difference)
