@@ -4,6 +4,7 @@ import unittest
 
 from tests.image_comparison import image_comparison_test
 from tests.screenshot import screenshot_test
+from tests.resize import resize_test
 import sys
 
 
@@ -11,6 +12,7 @@ def suite():
     return unittest.TestSuite((
         unittest.makeSuite(image_comparison_test.ImageComparisonTestCase),
         unittest.makeSuite(screenshot_test.ScreenshotTestCase),
+        unittest.makeSuite(resize_test.ResizeTestCase)
     ))
 
 
