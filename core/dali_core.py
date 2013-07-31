@@ -36,11 +36,20 @@ class DaliCore(object):
         time.sleep(1)
         if "hide_elements" in options:
             for selector in options["hide_elements"].split(","):
-                self.remote.execute_script(Scripts.hide_elements % selector)
+                self.remote.execute_script(Scripts.hide_elements % selector.strip())
 
         if "disable_animation" in options and options["disable_animation"] == "True":
             self.remote.execute_script(Scripts.disable_animation)
-        time.sleep(1)
+
+        if "substitution" in options:
+            d = eval(options["substitution"])
+            for key in d.keys():
+                elements = self.remote.find_elements_by_css_selector(key)
+                for element in elements:
+                    script = "arguments[0].innerHTML='%s'" % d[key]
+                    self.remote.execute_script(script, element)
+
+        time.sleep(10)
 
         filename = "%s/dali-%s-%s.png" % (save_path, time.time(), self.resolution)
         self.remote.get_screenshot_as_file(filename)

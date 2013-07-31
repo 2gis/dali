@@ -21,7 +21,7 @@ class ExampleTestCase(unittest.TestCase):
             """
             :type driver: Remote
             """
-            driver.implicitly_wait(2)
+            driver.implicitly_wait(5)
             driver.get("http://go.2gis.com/uvaw")
             driver.find_element_by_css_selector(".dg-traf-scores-wr").click()
 
@@ -33,7 +33,8 @@ class ExampleTestCase(unittest.TestCase):
             path_to_save="/tmp",
             options={
                 "disable_animation": "True",
-                "hide_elements": ".dg-start-banner"
+                "hide_elements": ".dg-start-banner",
+                "substitution": "{'.dg-routs>.dg-btn-label':'ololo'}",
             }
         )
 
@@ -43,13 +44,13 @@ class ExampleTestCase(unittest.TestCase):
             scenario_args=self.driver,
             path_to_save="/tmp",
             options={
-                "disable_animation": "true",
+                "disable_animation": "True",
                 "hide_elements": ".dg-start-banner"
             }
         )
 
         diff = dali.compare_images(file1, file2, "/tmp/out.png")
-        self.assertEquals(0.0, diff, "The difference is %.2f%%" % diff)
+        self.assertLessEqual(diff, 0.1, "The difference is %f" % diff)
 
 
 if __name__ == "__main__":
