@@ -1,7 +1,5 @@
 __author__ = 'i.pavlov'
 
-__author__ = 'i.pavlov'
-
 import unittest
 import os
 import json
@@ -19,14 +17,14 @@ class ResizeTestCase(unittest.TestCase):
         self.current_directory = os.path.dirname(os.path.abspath(__file__))
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
 
     def test_core_screenshot_resize_firefox(self):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.FIREFOX,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -44,7 +42,7 @@ class ResizeTestCase(unittest.TestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -63,7 +61,7 @@ class ResizeTestCase(unittest.TestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.OPERA,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -81,7 +79,7 @@ class ResizeTestCase(unittest.TestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.INTERNETEXPLORER,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))

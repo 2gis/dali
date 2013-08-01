@@ -24,7 +24,7 @@ class ScreenshotTestCase(BrowserTestCase):
         super(ScreenshotTestCase, self).setUp()
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
         try:
             os.remove(self.first_screenshot)
         except (OSError, AttributeError):
@@ -41,7 +41,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.FIREFOX,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -65,7 +65,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -89,7 +89,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.OPERA,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -113,7 +113,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.INTERNETEXPLORER,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -137,7 +137,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.FIREFOX,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -165,7 +165,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -193,7 +193,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.OPERA,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -221,7 +221,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.INTERNETEXPLORER,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -249,7 +249,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.FIREFOX,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -275,7 +275,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -301,7 +301,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.OPERA,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
@@ -327,7 +327,7 @@ class ScreenshotTestCase(BrowserTestCase):
         # Dali setup
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.INTERNETEXPLORER,
-            command_executor="http://{}:4444/wd/hub".format(Config.server)
+            command_executor="http://{host}:{port}/wd/hub".format(host=Config.server, port=Config.port)
         )
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))

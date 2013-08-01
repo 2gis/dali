@@ -73,14 +73,29 @@ class Dali(object):
             pass
         self.transport.close()
 
+    def run_scenario(self, scenario=None, scenario_args=None):
+        # print scenario
+        # print type(scenario_args)
+        # print scenario_args
+
+        if callable(scenario):
+            if not scenario_args:
+                return scenario()
+            else:
+                if type(scenario_args) is dict:
+                    return scenario(**scenario_args)
+                elif hasattr(scenario_args, '__iter__'):
+                    return scenario(*scenario_args)
+                else:
+                    return scenario(scenario_args)
+
     def take_screenshot(self, resolution, scenario=None, scenario_args=None, path_to_save=None, options={}):
         ### @todo default directory for windows
         if not path_to_save:
             path_to_save = "/tmp"
         self.transport.open()
         self.client.resize(resolution)
-        if callable(scenario):
-            scenario(scenario_args)
+        self.run_scenario(scenario, scenario_args)
         filename = self.client.take(path_to_save, options)
         self.transport.close()
 

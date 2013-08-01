@@ -1,16 +1,26 @@
 #! /usr/bin/env python
 __author__ = 'i.pavlov'
 
-from tests.config import Config
 import subprocess
-import sys
 import os
+import unittest
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from tests.config import Config
 
-nc = subprocess.call(['nc', '-z', Config.server, '4444'])
+os.environ['PYTHONPATH'] = os.path.dirname(os.path.abspath(__file__))
+
+nc = subprocess.call(['nc', '-z', Config.server, Config.port])
 if nc:
     exit(nc)
 
-from tests.test_suite import main
-main()
+from tests.core import test_suite as core_test_suite
+from tests.python_bindings import test_suite as python_bindings_test_suite
+
+suite = unittest.TestSuite((
+    core_test_suite.suite(),
+    python_bindings_test_suite.suite()
+))
+unittest.TextTestRunner(verbosity=2).run(suite)
+
+
+

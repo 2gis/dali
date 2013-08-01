@@ -22,9 +22,12 @@ class BrowserTestCase(unittest.TestCase):
         self.driver.get(self.page_url(name))
 
     def get_local_ip(self):
+        # what ip can selenium server see us
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.connect((Config.server, 0))
-        return s.getsockname()[0]
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
 
     def page_url(self, name):
         return "http://{address}:{port}/{page}.html".format(
