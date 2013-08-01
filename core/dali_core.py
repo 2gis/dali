@@ -49,8 +49,6 @@ class DaliCore(object):
                     script = "arguments[0].innerHTML='%s'" % d[key]
                     self.remote.execute_script(script, element)
 
-        time.sleep(10)
-
         filename = "%s/dali-%s-%s.png" % (save_path, time.time(), self.resolution)
         self.remote.get_screenshot_as_file(filename)
 
