@@ -1,16 +1,13 @@
-__author__ = 'i.pavlov'
-
 import unittest
 
-from tests.python_bindings.scenario import scenario_test
-from tests.python_bindings.scenario import take_screenshot_scenario
+from tests.py_bindings.scenario import scenario_test, take_screenshot_scenario_test
 # import sys
 
 
 def suite():
     return unittest.TestSuite((
         unittest.makeSuite(scenario_test.ScenarioTestCase),
-        unittest.makeSuite(take_screenshot_scenario.TakeScreenshotScenarioTestCase)
+        unittest.makeSuite(take_screenshot_scenario_test.TakeScreenshotScenarioTestCase)
     ))
 
 

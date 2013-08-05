@@ -1,18 +1,14 @@
-__author__ = 'i.pavlov'
-
 import unittest
 import os
-
-from dali import Dali
+from PIL import Image
+import numpy
 
 from selenium.webdriver import Remote
 from selenium.webdriver import DesiredCapabilities
 
+from dali import Dali
 from tests.config import Config
 from tests.BrowserTestCase import BrowserTestCase
-
-from PIL import Image
-import numpy
 
 
 class TakeScreenshotScenarioTestCase(BrowserTestCase):
@@ -52,6 +48,7 @@ class TakeScreenshotScenarioTestCase(BrowserTestCase):
         # and we can use scenario with preset resolution
         def scenario(driver):
             driver.get(self.page_url('colored'))
+
         self.screenshot2 = dali.take_screenshot(
             resolution="800x600",
             scenario=scenario,
@@ -177,4 +174,4 @@ class TakeScreenshotScenarioTestCase(BrowserTestCase):
         numpy.testing.assert_array_equal(matrix1, matrix2)
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(verbosity=2)

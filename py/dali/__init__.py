@@ -9,7 +9,7 @@ from thrift.Thrift import TException
 from thrift.protocol import TBinaryProtocol
 from thrift.transport import TSocket, TTransport
 
-from bindings.py.dali import Dali as DaliThrift
+from common.core.interface_implementation.dali import Dali as DaliThrift
 from exceptions import *
 
 
@@ -33,7 +33,7 @@ def get_free_port():
 
 
 class Dali(object):
-    DALI_SERVER_PATH = os.path.dirname(os.path.abspath(__file__)) + "/core/server/dali_server.py"
+    DALI_SERVER_PATH = os.path.dirname(os.path.abspath(__file__)) + "/common/core/dali_server.py"
     CONNECTION_TIMEOUT = 5  # in seconds
 
     def __init__(self, driver):
@@ -41,7 +41,8 @@ class Dali(object):
         :type driver: Remote
         """
         port = get_free_port()
-        subprocess.Popen([
+        process = subprocess.Popen([
+            "python",
             self.DALI_SERVER_PATH,
             "--port=%d" % port,
         ])
@@ -74,10 +75,6 @@ class Dali(object):
         self.transport.close()
 
     def run_scenario(self, scenario=None, scenario_args=None):
-        # print scenario
-        # print type(scenario_args)
-        # print scenario_args
-
         if callable(scenario):
             if not scenario_args:
                 return scenario()

@@ -15,8 +15,7 @@ from thrift.transport import TSocket
 from thrift.transport import THttpClient
 from thrift.protocol import TBinaryProtocol
 
-import Dali
-from ttypes import *
+from common.core.tdali.dali import Dali
 
 if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print ''

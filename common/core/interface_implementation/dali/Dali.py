@@ -6,11 +6,11 @@
 #  options string: py
 #
 
-from thrift.Thrift import TType, TMessageType, TException, TApplicationException
-from ttypes import *
+from thrift.Thrift import TType, TMessageType, TApplicationException
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
-from thrift.protocol import TBinaryProtocol, TProtocol
+from thrift.protocol import TBinaryProtocol
+
 try:
   from thrift.protocol import fastbinary
 except:

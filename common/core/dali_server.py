@@ -8,8 +8,8 @@ from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 from thrift.transport import TSocket, TTransport
 
-from bindings.py.dali import Dali
-from core.dali_core import DaliCore
+from interface_implementation.dali import Dali
+from dali_core import DaliCore
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--port", required=True)

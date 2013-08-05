@@ -1,9 +1,7 @@
-__author__ = 'i.pavlov'
-
 import unittest
 import os
 
-from core.compare.pixel_diff import diff
+from common.core.compare.pixel_diff import diff
 
 
 class ImageComparisonTestCase(unittest.TestCase):

@@ -3,7 +3,7 @@ import unittest
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver import Remote
 
-from dali import Dali
+from dali.dali import Dali
 
 
 class ExampleTestCase(unittest.TestCase):

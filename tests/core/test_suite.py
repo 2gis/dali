@@ -1,5 +1,3 @@
-__author__ = 'i.pavlov'
-
 import unittest
 
 from tests.core.image_comparison import image_comparison_test

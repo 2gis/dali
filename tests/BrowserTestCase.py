@@ -1,11 +1,10 @@
-__author__ = 'i.pavlov'
-
 import unittest
 import os
 import socket
 
 from tests.webserver import SimpleWebServer
 from tests.config import Config
+
 
 class BrowserTestCase(unittest.TestCase):
     def setUp(self):

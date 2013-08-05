@@ -1,5 +1,3 @@
-__author__ = 'i.pavlov'
-
 import unittest
 import os
 import json
@@ -11,7 +9,7 @@ from selenium.webdriver import DesiredCapabilities
 
 from tests.BrowserTestCase import BrowserTestCase
 
-from core.dali_core import DaliCore
+from common.core.dali_core import DaliCore
 
 from PIL import Image
 import numpy

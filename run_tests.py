@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-__author__ = 'i.pavlov'
+from tests.py_bindings import test_suite as python_bindings_test_suite
 
 import subprocess
 import os
@@ -14,7 +14,6 @@ if nc:
     exit(nc)
 
 from tests.core import test_suite as core_test_suite
-from tests.python_bindings import test_suite as python_bindings_test_suite
 
 suite = unittest.TestSuite((
     core_test_suite.suite(),

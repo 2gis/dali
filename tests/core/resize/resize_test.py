@@ -1,5 +1,3 @@
-__author__ = 'i.pavlov'
-
 import unittest
 import os
 import json
@@ -8,7 +6,7 @@ from tests.config import Config
 from selenium.webdriver import Remote
 from selenium.webdriver import DesiredCapabilities
 
-from core.dali_core import DaliCore
+from common.core.dali_core import DaliCore
 
 
 class ResizeTestCase(unittest.TestCase):

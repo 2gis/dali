@@ -1,12 +1,9 @@
-__author__ = 'i.pavlov'
-
 import unittest
 import os
 
-from dali import Dali
-
 from selenium.webdriver import DesiredCapabilities
 
+from dali import Dali
 from tests.config import Config
 
 

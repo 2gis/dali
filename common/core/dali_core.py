@@ -5,8 +5,8 @@ from selenium.webdriver import Remote
 from selenium.webdriver.remote.errorhandler import ErrorHandler
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 
-from core.compare.pixel_diff import diff
-from core.supplement.scripts import Scripts
+from compare.pixel_diff import diff
+from supplement.scripts import Scripts
 
 
 class DaliRemote(Remote):
@@ -29,6 +29,8 @@ class DaliCore(object):
         self.resolution = resolution
         w, h = tuple(resolution.split('x'))
         self.remote.set_window_size(int(w), int(h))
+        ### @todo need to add some waiting mechanism, local resize is too fast
+        time.sleep(1)
 
     def take(self, save_path, options):
         ### @todo research and remove sleeps
