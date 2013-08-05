@@ -3,21 +3,21 @@
 #
 # DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 #
-#  options string: py
+#  options string: py:new_style
 #
 
-from thrift.Thrift import TType, TMessageType, TApplicationException
+from thrift.Thrift import TType, TMessageType, TException, TApplicationException
+from ttypes import *
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
-from thrift.protocol import TBinaryProtocol
-
+from thrift.protocol import TBinaryProtocol, TProtocol
 try:
   from thrift.protocol import fastbinary
 except:
   fastbinary = None
 
 
-class Iface:
+class Iface(object):
   def init(self, remote_url, capabilities):
     """
     Parameters:
@@ -292,7 +292,7 @@ class Processor(Iface, TProcessor):
 
 # HELPER FUNCTIONS AND STRUCTURES
 
-class init_args:
+class init_args(object):
   """
   Attributes:
    - remote_url
@@ -364,7 +364,7 @@ class init_args:
   def __ne__(self, other):
     return not (self == other)
 
-class init_result:
+class init_result(object):
 
   thrift_spec = (
   )
@@ -406,7 +406,7 @@ class init_result:
   def __ne__(self, other):
     return not (self == other)
 
-class resize_args:
+class resize_args(object):
   """
   Attributes:
    - resolution
@@ -466,7 +466,7 @@ class resize_args:
   def __ne__(self, other):
     return not (self == other)
 
-class resize_result:
+class resize_result(object):
 
   thrift_spec = (
   )
@@ -508,7 +508,7 @@ class resize_result:
   def __ne__(self, other):
     return not (self == other)
 
-class take_args:
+class take_args(object):
   """
   Attributes:
    - save_path
@@ -518,7 +518,7 @@ class take_args:
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'save_path', None, None, ), # 1
-    (2, TType.MAP, 'options', (TType.STRING,None,TType.STRING,None), None, ), # 2
+    (2, TType.STRUCT, 'options', (TOptions, TOptions.thrift_spec), None, ), # 2
   )
 
   def __init__(self, save_path=None, options=None,):
@@ -540,14 +540,9 @@ class take_args:
         else:
           iprot.skip(ftype)
       elif fid == 2:
-        if ftype == TType.MAP:
-          self.options = {}
-          (_ktype1, _vtype2, _size0 ) = iprot.readMapBegin() 
-          for _i4 in xrange(_size0):
-            _key5 = iprot.readString();
-            _val6 = iprot.readString();
-            self.options[_key5] = _val6
-          iprot.readMapEnd()
+        if ftype == TType.STRUCT:
+          self.options = TOptions()
+          self.options.read(iprot)
         else:
           iprot.skip(ftype)
       else:
@@ -565,12 +560,8 @@ class take_args:
       oprot.writeString(self.save_path)
       oprot.writeFieldEnd()
     if self.options is not None:
-      oprot.writeFieldBegin('options', TType.MAP, 2)
-      oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.options))
-      for kiter7,viter8 in self.options.items():
-        oprot.writeString(kiter7)
-        oprot.writeString(viter8)
-      oprot.writeMapEnd()
+      oprot.writeFieldBegin('options', TType.STRUCT, 2)
+      self.options.write(oprot)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -590,7 +581,7 @@ class take_args:
   def __ne__(self, other):
     return not (self == other)
 
-class take_result:
+class take_result(object):
   """
   Attributes:
    - success
@@ -649,7 +640,7 @@ class take_result:
   def __ne__(self, other):
     return not (self == other)
 
-class compare_args:
+class compare_args(object):
   """
   Attributes:
    - image1_path
@@ -733,7 +724,7 @@ class compare_args:
   def __ne__(self, other):
     return not (self == other)
 
-class compare_result:
+class compare_result(object):
   """
   Attributes:
    - success
@@ -792,7 +783,7 @@ class compare_result:
   def __ne__(self, other):
     return not (self == other)
 
-class stop_args:
+class stop_args(object):
 
   thrift_spec = (
   )
@@ -834,7 +825,7 @@ class stop_args:
   def __ne__(self, other):
     return not (self == other)
 
-class stop_result:
+class stop_result(object):
 
   thrift_spec = (
   )

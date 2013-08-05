@@ -7,8 +7,8 @@ $ apt-get install python-opencv python-numpy
 $ pip install thrift==0.9.0 selenium==2.33.0
 ```
 
-### Create custom bindings
+### Update python bindings
 Requires [Apache Thrift](http://thrift.apache.org/).
 ```bash
-$ thrift -out bindings/py --gen py config/dali.thrift
+$ thrift -out common/core/interface_implementation --gen py:new_style common/config/dali.thrift
 ```

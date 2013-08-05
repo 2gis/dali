@@ -4,7 +4,7 @@
 #
 # DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 #
-#  options string: py
+#  options string: py:new_style
 #
 
 import sys
@@ -15,7 +15,8 @@ from thrift.transport import TSocket
 from thrift.transport import THttpClient
 from thrift.protocol import TBinaryProtocol
 
-from common.core.tdali.dali import Dali
+import TDali
+from ttypes import *
 
 if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print ''
@@ -24,7 +25,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print 'Functions:'
   print '  void init(string remote_url, string capabilities)'
   print '  void resize(string resolution)'
-  print '  string take(string save_path,  options)'
+  print '  string take(string save_path, TOptions options)'
   print '  double compare(string image1_path, string image2_path, string result_path)'
   print '  void stop()'
   print ''
@@ -75,7 +76,7 @@ else:
   else:
     transport = TTransport.TBufferedTransport(socket)
 protocol = TBinaryProtocol.TBinaryProtocol(transport)
-client = Dali.Client(protocol)
+client = TDali.Client(protocol)
 transport.open()
 
 if cmd == 'init':

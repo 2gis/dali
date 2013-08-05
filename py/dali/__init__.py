@@ -9,7 +9,8 @@ from thrift.Thrift import TException
 from thrift.protocol import TBinaryProtocol
 from thrift.transport import TSocket, TTransport
 
-from common.core.interface_implementation.dali import Dali as DaliThrift
+from common.core.interface_implementation.dali import TDali
+from common.core.interface_implementation.dali.ttypes import TOptions
 from exceptions import *
 
 
@@ -30,6 +31,11 @@ def get_free_port():
     port = sock.getsockname()[1]
     sock.close()
     return port
+
+
+class Options(TOptions):
+    def __init__(self, *args, **kwargs):
+        super(Options, self).__init__(*args, **kwargs)
 
 
 class Dali(object):
@@ -57,7 +63,7 @@ class Dali(object):
             self.transport = TSocket.TSocket("localhost", port)
             self.transport = TTransport.TBufferedTransport(self.transport)
             protocol = TBinaryProtocol.TBinaryProtocol(self.transport)
-            self.client = DaliThrift.Client(protocol)
+            self.client = TDali.Client(protocol)
             self.transport.open()
             self.client.init(driver.command_executor._url, json.dumps(driver.capabilities))
             self.transport.close()
@@ -81,12 +87,12 @@ class Dali(object):
             else:
                 if type(scenario_args) is dict:
                     return scenario(**scenario_args)
-                elif hasattr(scenario_args, '__iter__'):
+                elif hasattr(scenario_args, "__iter__"):
                     return scenario(*scenario_args)
                 else:
                     return scenario(scenario_args)
 
-    def take_screenshot(self, resolution, scenario=None, scenario_args=None, path_to_save=None, options={}):
+    def take_screenshot(self, resolution, scenario=None, scenario_args=None, path_to_save=None, options=TOptions()):
         ### @todo default directory for windows
         if not path_to_save:
             path_to_save = "/tmp"
@@ -95,12 +101,10 @@ class Dali(object):
         self.run_scenario(scenario, scenario_args)
         filename = self.client.take(path_to_save, options)
         self.transport.close()
-
         return filename
 
     def compare_images(self, standard, candidate, result):
         self.transport.open()
         result = self.client.compare(standard, candidate, result)
         self.transport.close()
-
         return result

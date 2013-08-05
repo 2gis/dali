@@ -1,4 +1,5 @@
 import json
+import sys
 import time
 
 from selenium.webdriver import Remote
@@ -36,24 +37,21 @@ class DaliCore(object):
         ### @todo research and remove sleeps
         ### @todo more common options
         time.sleep(1)
-        if "hide_elements" in options:
-            for selector in options["hide_elements"].split(","):
-                self.remote.execute_script(Scripts.hide_elements % selector.strip())
 
-        if "disable_animation" in options and options["disable_animation"] == "True":
+        for key in options.substitute.keys():
+            elements = self.remote.find_elements_by_css_selector(key)
+            for element in elements:
+                script = "arguments[0].innerHTML='%s'" % options.substitute[key]
+                self.remote.execute_script(script, element)
+
+        for selector in options.hide_elements:
+            self.remote.execute_script(Scripts.hide_elements % selector)
+
+        if options.disable_animation:
             self.remote.execute_script(Scripts.disable_animation)
-
-        if "substitution" in options:
-            d = eval(options["substitution"])
-            for key in d.keys():
-                elements = self.remote.find_elements_by_css_selector(key)
-                for element in elements:
-                    script = "arguments[0].innerHTML='%s'" % d[key]
-                    self.remote.execute_script(script, element)
 
         filename = "%s/dali-%s-%s.png" % (save_path, time.time(), self.resolution)
         self.remote.get_screenshot_as_file(filename)
-
         return filename
 
     @staticmethod
@@ -63,6 +61,4 @@ class DaliCore(object):
     @staticmethod
     def stop():
         ### @todo graceful shutdown
-        import sys
-
         sys.exit(0)

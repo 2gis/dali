@@ -3,7 +3,7 @@
 #
 # DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 #
-#  options string: py
+#  options string: py:new_style
 #
 
 from thrift.Thrift import TType, TMessageType, TException, TApplicationException
@@ -16,3 +16,113 @@ except:
   fastbinary = None
 
 
+
+class TOptions(object):
+  """
+  Attributes:
+   - substitute
+   - hide_elements
+   - disable_animation
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.MAP, 'substitute', (TType.STRING,None,TType.STRING,None), {
+    }, ), # 1
+    (2, TType.LIST, 'hide_elements', (TType.STRING,None), [
+    ], ), # 2
+    (3, TType.BOOL, 'disable_animation', None, False, ), # 3
+  )
+
+  def __init__(self, substitute=thrift_spec[1][4], hide_elements=thrift_spec[2][4], disable_animation=thrift_spec[3][4],):
+    if substitute is self.thrift_spec[1][4]:
+      substitute = {
+    }
+    self.substitute = substitute
+    if hide_elements is self.thrift_spec[2][4]:
+      hide_elements = [
+    ]
+    self.hide_elements = hide_elements
+    self.disable_animation = disable_animation
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.MAP:
+          self.substitute = {}
+          (_ktype1, _vtype2, _size0 ) = iprot.readMapBegin() 
+          for _i4 in xrange(_size0):
+            _key5 = iprot.readString();
+            _val6 = iprot.readString();
+            self.substitute[_key5] = _val6
+          iprot.readMapEnd()
+        else:
+          iprot.skip(ftype)
+      elif fid == 2:
+        if ftype == TType.LIST:
+          self.hide_elements = []
+          (_etype10, _size7) = iprot.readListBegin()
+          for _i11 in xrange(_size7):
+            _elem12 = iprot.readString();
+            self.hide_elements.append(_elem12)
+          iprot.readListEnd()
+        else:
+          iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.BOOL:
+          self.disable_animation = iprot.readBool();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('TOptions')
+    if self.substitute is not None:
+      oprot.writeFieldBegin('substitute', TType.MAP, 1)
+      oprot.writeMapBegin(TType.STRING, TType.STRING, len(self.substitute))
+      for kiter13,viter14 in self.substitute.items():
+        oprot.writeString(kiter13)
+        oprot.writeString(viter14)
+      oprot.writeMapEnd()
+      oprot.writeFieldEnd()
+    if self.hide_elements is not None:
+      oprot.writeFieldBegin('hide_elements', TType.LIST, 2)
+      oprot.writeListBegin(TType.STRING, len(self.hide_elements))
+      for iter15 in self.hide_elements:
+        oprot.writeString(iter15)
+      oprot.writeListEnd()
+      oprot.writeFieldEnd()
+    if self.disable_animation is not None:
+      oprot.writeFieldBegin('disable_animation', TType.BOOL, 3)
+      oprot.writeBool(self.disable_animation)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def validate(self):
+    return
+
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)

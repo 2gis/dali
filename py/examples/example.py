@@ -3,7 +3,7 @@ import unittest
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver import Remote
 
-from dali.dali import Dali
+from dali import Dali, Options
 
 
 class ExampleTestCase(unittest.TestCase):
@@ -26,16 +26,21 @@ class ExampleTestCase(unittest.TestCase):
             driver.find_element_by_css_selector(".dg-traf-scores-wr").click()
 
         dali = Dali(self.driver)
+        options1 = Options(
+            substitute={".dg-routs>.dg-btn-label": "Lorem Ipsum"},
+            hide_elements=[".dg-start-banner"],
+            disable_animation=True
+        )
+        options2 = Options(
+            hide_elements=[".dg-start-banner"],
+            disable_animation=True
+        )
         file1 = dali.take_screenshot(
             resolution="1024x768",
             scenario=callback,
             scenario_args=self.driver,
             path_to_save="/tmp",
-            options={
-                "disable_animation": "True",
-                "hide_elements": ".dg-start-banner",
-                "substitution": "{'.dg-routs>.dg-btn-label':'ololo'}",
-            }
+            options=options1
         )
 
         file2 = dali.take_screenshot(
@@ -43,10 +48,7 @@ class ExampleTestCase(unittest.TestCase):
             scenario=callback,
             scenario_args=self.driver,
             path_to_save="/tmp",
-            options={
-                "disable_animation": "True",
-                "hide_elements": ".dg-start-banner"
-            }
+            options=options2
         )
 
         diff = dali.compare_images(file1, file2, "/tmp/out.png")

@@ -1,4 +1,10 @@
-service Dali {
+struct TOptions {
+    1: optional map<string, string> substitute = []
+    2: optional list<string> hide_elements = []
+    3: optional bool disable_animation = false
+}
+
+service TDali {
     void init (
         1: string remote_url
         2: string capabilities
@@ -8,7 +14,7 @@ service Dali {
     )
     string take(
         1: string save_path
-        2: map<string, string> options
+        2: TOptions options
     )
     double compare(
         1: string image1_path

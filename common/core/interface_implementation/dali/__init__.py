@@ -1,1 +1,1 @@
-__all__ = ['ttypes', 'constants', 'Dali']
+__all__ = ['ttypes', 'constants', 'TDali']
