@@ -29,5 +29,5 @@ https://github.com/2gis/dali/tree/master/pybindings
 ### To create your own bindings on `language`
 Requires [Apache Thrift](http://thrift.apache.org/).
 ```bash
-$ thrift -out `language`bindings/ --gen `language`:new_style common/config/dali.thrift
+$ thrift -out `language`bindings/ --gen `language` common/config/dali.thrift
 ```
