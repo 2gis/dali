@@ -35,8 +35,7 @@ class DaliCore(object):
 
     def take(self, save_path, options):
         ### @todo research and remove sleeps
-        ### @todo more common options
-        time.sleep(1)
+        time.sleep(2)
 
         for key in options.substitute.keys():
             elements = self.remote.find_elements_by_css_selector(key)
