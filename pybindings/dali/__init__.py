@@ -47,11 +47,17 @@ class Dali(object):
         :type driver: Remote
         """
         port = get_free_port()
-        process = subprocess.Popen([
+        server_process = subprocess.Popen([
             "python",
             self.DALI_SERVER_PATH,
             "--port=%d" % port,
         ])
+
+        ### @todo add returncode managment
+        if server_process.returncode:
+            raise Exception("Server didn't start")
+        else:
+            pass
 
         t = time.time()
         while not is_connectable(port) and time.time() - t < self.CONNECTION_TIMEOUT:

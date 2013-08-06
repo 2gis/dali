@@ -8,7 +8,7 @@ from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 from thrift.transport import TSocket, TTransport
 
-from interface_implementation.dali import Dali
+from interface_implementation.dali import TDali
 from dali_core import DaliCore
 
 parser = argparse.ArgumentParser()
@@ -16,7 +16,7 @@ parser.add_argument("--port", required=True)
 port = parser.parse_args().port
 
 handler = DaliCore()
-processor = Dali.Processor(handler)
+processor = TDali.Processor(handler)
 transport = TSocket.TServerSocket(port=port)
 tfactory = TTransport.TBufferedTransportFactory()
 pfactory = TBinaryProtocol.TBinaryProtocolFactory()

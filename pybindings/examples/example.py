@@ -5,12 +5,11 @@ from selenium.webdriver import Remote
 
 from dali import Dali, Options
 
-
 class ExampleTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://localhost:4444/wd/hub"
+            command_executor="http://localhost:4455/wd/hub"
         )
 
     def tearDown(self):
@@ -39,20 +38,20 @@ class ExampleTestCase(unittest.TestCase):
             resolution="1024x768",
             scenario=callback,
             scenario_args=self.driver,
-            path_to_save="/tmp",
-            options=options1
+            options=options1,
+            path_to_save="./",
         )
 
         file2 = dali.take_screenshot(
             resolution="1024x768",
             scenario=callback,
             scenario_args=self.driver,
-            path_to_save="/tmp",
-            options=options2
+            options=options2,
+            path_to_save="./",
         )
 
-        diff = dali.compare_images(file1, file2, "/tmp/out.png")
-        self.assertLessEqual(diff, 0.1, "The difference is %f" % diff)
+        diff = dali.compare_images(file1, file2, "./out.png")
+        self.assertEquals(diff, 0.0, "The difference is %f" % diff)
 
 
 if __name__ == "__main__":

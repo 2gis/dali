@@ -1,2 +1,2 @@
-include py/README
+include pybindings/README
 recursive-include common *
