@@ -10,6 +10,7 @@ from selenium.webdriver import DesiredCapabilities
 from tests.BrowserTestCase import BrowserTestCase
 
 from common.core.dali_core import DaliCore
+from common.core.interface_implementation.dali.ttypes import TOptions
 
 from PIL import Image
 import numpy
@@ -45,8 +46,8 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
         self.load_page("picture1")
-        self.first_screenshot = self.core.take(self.current_directory, {})
-        self.second_screenshot = self.core.take(self.current_directory, {})
+        self.first_screenshot = self.core.take(self.current_directory, TOptions())
+        self.second_screenshot = self.core.take(self.current_directory, TOptions())
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -69,8 +70,8 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
         self.load_page("picture1")
-        self.first_screenshot = self.core.take(self.current_directory, {})
-        self.second_screenshot = self.core.take(self.current_directory, {})
+        self.first_screenshot = self.core.take(self.current_directory, TOptions())
+        self.second_screenshot = self.core.take(self.current_directory, TOptions())
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -93,8 +94,8 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
         self.load_page("picture1")
-        self.first_screenshot = self.core.take(self.current_directory, {})
-        self.second_screenshot = self.core.take(self.current_directory, {})
+        self.first_screenshot = self.core.take(self.current_directory, TOptions())
+        self.second_screenshot = self.core.take(self.current_directory, TOptions())
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -117,8 +118,8 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
         self.load_page("picture1")
-        self.first_screenshot = self.core.take(self.current_directory, {})
-        self.second_screenshot = self.core.take(self.current_directory, {})
+        self.first_screenshot = self.core.take(self.current_directory, TOptions())
+        self.second_screenshot = self.core.take(self.current_directory, TOptions())
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -140,13 +141,15 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        option = TOptions(disable_animation=True)
+
         self.load_page("animation")
-        self.first_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.first_screenshot = self.core.take(self.current_directory, option)
 
         self.load_page("animation")
         #sleep to get another state of animation
         time.sleep(0.5)
-        self.second_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.second_screenshot = self.core.take(self.current_directory, option)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -168,13 +171,15 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        option = TOptions(disable_animation=True)
+
         self.load_page("animation")
-        self.first_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.first_screenshot = self.core.take(self.current_directory, option)
 
         self.load_page("animation")
         #sleep to get another state of animation
         time.sleep(0.5)
-        self.second_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.second_screenshot = self.core.take(self.current_directory, option)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -196,13 +201,15 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        option = TOptions(disable_animation=True)
+
         self.load_page("animation")
-        self.first_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.first_screenshot = self.core.take(self.current_directory, option)
 
         self.load_page("animation")
         #sleep to get another state of animation
         time.sleep(0.5)
-        self.second_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.second_screenshot = self.core.take(self.current_directory, option)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -224,13 +231,15 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        options = TOptions(disable_animation=True)
+
         self.load_page("animation")
-        self.first_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.first_screenshot = self.core.take(self.current_directory, options)
 
         self.load_page("animation")
         #sleep to get another state of animation
         time.sleep(0.5)
-        self.second_screenshot = self.core.take(self.current_directory, {"disable_animation": "True"})
+        self.second_screenshot = self.core.take(self.current_directory, options)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -252,11 +261,13 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        options = TOptions(hide_elements=['#pic'])
+
         self.load_page("hide_elements1")
-        self.first_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.first_screenshot = self.core.take(self.current_directory, options)
 
         self.load_page("hide_elements2")
-        self.second_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.second_screenshot = self.core.take(self.current_directory, options)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -278,11 +289,13 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        options = TOptions(hide_elements=['#pic'])
+
         self.load_page("hide_elements1")
-        self.first_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.first_screenshot = self.core.take(self.current_directory, options)
 
         self.load_page("hide_elements2")
-        self.second_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.second_screenshot = self.core.take(self.current_directory, options)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -304,11 +317,13 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        options = TOptions(hide_elements=['#pic'])
+
         self.load_page("hide_elements1")
-        self.first_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.first_screenshot = self.core.take(self.current_directory, options)
 
         self.load_page("hide_elements2")
-        self.second_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.second_screenshot = self.core.take(self.current_directory, options)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
@@ -330,11 +345,13 @@ class ScreenshotTestCase(BrowserTestCase):
         self.core = DaliCore()
         self.core.init(self.driver.command_executor._url, json.dumps(self.driver.capabilities))
 
+        options = TOptions(hide_elements=['#pic'])
+
         self.load_page("hide_elements1")
-        self.first_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.first_screenshot = self.core.take(self.current_directory, options)
 
         self.load_page("hide_elements2")
-        self.second_screenshot = self.core.take(self.current_directory, {"hide_elements": "#pic"})
+        self.second_screenshot = self.core.take(self.current_directory, options)
 
         self.assertTrue(os.path.exists(self.first_screenshot))
         self.assertTrue(os.path.exists(self.second_screenshot))
