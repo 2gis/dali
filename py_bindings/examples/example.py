@@ -5,6 +5,7 @@ from selenium.webdriver import Remote
 
 from dali import Dali, Options
 
+
 class ExampleTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = Remote(

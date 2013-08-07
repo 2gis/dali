@@ -100,7 +100,7 @@ You can run this example after installation by
 
 1. You need to start selenium-server-standalone on port 4444 (or change example.py) with binded ChromeDriver2
    You may find this link useful: https://github.com/bayandin/selenium-launchers
-2. cd pybindings/examples
+2. cd py_bindings/examples
 3. python example.py
 
 ```python

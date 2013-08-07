@@ -9,7 +9,7 @@ for dirname, dirnames, filenames in os.walk('common/'):
     core_files.append((dirname, dirfiles))
 
 current_directory = os.path.abspath(os.path.dirname(__file__))
-readme_name = os.path.join(current_directory, "pybindings", "README.md")
+readme_name = os.path.join(current_directory, "py_bindings", "README.md")
 readme_text = open(readme_name).read()
 
 data_files = core_files
@@ -26,7 +26,7 @@ setup_args = {
     'packages': {'dali',
     },
     'package_dir': {
-        'dali': 'pybindings/dali',
+        'dali': 'py_bindings/dali',
     },
     'data_files': data_files,
     'install_requires': [

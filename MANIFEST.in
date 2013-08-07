@@ -1,2 +1,2 @@
-include pybindings/README.md
+include py_bindings/README.md
 recursive-include common *
