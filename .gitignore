@@ -1,5 +1,7 @@
 ### Python ###
 *.py[cod]
+
+### Python package ###
 *.egg-info
 dist
 build

@@ -34,7 +34,7 @@ from dali import Dali, Options
 ```python
 self.driver = Remote(
     desired_capabilities=DesiredCapabilities.CHROME,
-    command_executor="http://localhost:4455/wd/hub"
+    command_executor="http://localhost:4444/wd/hub"
 )
 dali = Dali(self.driver)
 ```
@@ -98,7 +98,7 @@ example
 
 You can run this example after installation by
 
-1. You need to start selenium-server-standalone on port 4455 (or change example.py) with binded ChromeDriver2
+1. You need to start selenium-server-standalone on port 4444 (or change example.py) with binded ChromeDriver2
    You may find this link useful: https://github.com/bayandin/selenium-launchers
 2. cd pybindings/examples
 3. python example.py
@@ -115,7 +115,7 @@ class ExampleTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://localhost:4455/wd/hub"
+            command_executor="http://localhost:4444/wd/hub"
         )
 
     def tearDown(self):

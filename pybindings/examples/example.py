@@ -9,7 +9,7 @@ class ExampleTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = Remote(
             desired_capabilities=DesiredCapabilities.CHROME,
-            command_executor="http://localhost:4455/wd/hub"
+            command_executor="http://localhost:4444/wd/hub"
         )
 
     def tearDown(self):
