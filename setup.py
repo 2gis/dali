@@ -20,10 +20,11 @@ setup_args = {
     'maintainer_email': 'autoqa@2gis.ru',
     'version': "0.1",
     'license': 'MIT',
-    'description': 'Python bindings for Dali - selenium-based webpage screenshot comparison tool',
+    'description': 'Python bindings for Dali -- selenium-based web page screenshot comparison tool',
     'long_description': readme_text,
     'url': 'https://github.com/2gis/dali.git',
-    'packages': {'dali',
+    'packages': {
+        'dali',
     },
     'package_dir': {
         'dali': 'py_bindings/dali',
@@ -31,7 +32,7 @@ setup_args = {
     'data_files': data_files,
     'install_requires': [
         'thrift==0.9.0',
-        'selenium==2.33.0',
+        'selenium==2.34.0',
         'numpy==1.7.1',
     ],
 }
