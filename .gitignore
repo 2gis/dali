@@ -3,8 +3,8 @@
 
 ### Python package ###
 *.egg-info/
-dist/
 build/
+dist/
 
 ### IDE ###
 .idea/
