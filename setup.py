@@ -22,7 +22,7 @@ setup_args = {
     'license': 'MIT',
     'description': 'Python bindings for Dali -- selenium-based web page screenshot comparison tool',
     'long_description': readme_text,
-    'url': 'https://github.com/2gis/dali.git',
+    'url': 'https://github.com/2gis/dali',
     'packages': {
         'dali',
     },
