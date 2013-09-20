@@ -2,6 +2,7 @@ import json
 import os
 import socket
 import subprocess
+import tempfile
 import time
 
 from selenium.webdriver import Remote
@@ -99,9 +100,8 @@ class Dali(object):
                     return scenario(scenario_args)
 
     def take_screenshot(self, resolution, scenario=None, scenario_args=None, path_to_save=None, options=TOptions()):
-        ### @todo default directory for windows
         if not path_to_save:
-            path_to_save = "/tmp"
+            path_to_save = tempfile.gettempdir()
         self.transport.open()
         self.client.resize(resolution)
         self.run_scenario(scenario, scenario_args)
