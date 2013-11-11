@@ -20,6 +20,6 @@ class Scripts(object):
     hide_elements = """
         var _n = document.querySelectorAll('%s');
         for (var i = 0; i < _n.length; i++) {
-            _n[i].style.display = 'none';
+            _n[i].style.visibility = 'hidden';
         }
     """
