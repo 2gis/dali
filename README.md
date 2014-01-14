@@ -29,35 +29,27 @@ https://github.com/2gis/dali/tree/master/py_bindings
 ### Create bindings
 Requires [Apache Thrift](http://thrift.apache.org/)
 
-To create custom bindings you should execute the following command:
+To update python (core) binding just run:
 ```bash
-$ thrift -out {lang}_bindings/ --gen {lang_code} common/config/dali.thrift
+$ thrift -out common/core/interface_implementation/ --gen py common/config/dali.thrift
 ```
 
-where `{lang}` and `{lang_code}` from table:
+To create custom bindings you should execute the following command:
+```bash
+$ thrift -out {lang_code}_bindings/ --gen {lang_code} common/config/dali.thrift
+```
 
-| lang | lang_code |
+where `{lang_code}` from table:
+
+| lang_code | lang |
 |------|-----------|
-| as3 | AS3 |
-| c_glib | C, using GLib |
-| cocoa | Cocoa |
-| cpp | C++ |
 | csharp | C# |
-| d | D |
-| delphi | delphi |
-| erl | Erlang |
 | go | Go |
-| hs | Haskell |
-| html | HTML |
 | java | Java |
-| javame | Java ME |
 | js | Javascript |
-| ocaml | OCaml |
 | perl | Perl |
 | php | PHP |
-| py | Python |
 | rb | Ruby |
-| st | Smalltalk |
 
 For getting more information about supported languages just run:
 ```bash
