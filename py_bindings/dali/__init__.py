@@ -1,9 +1,10 @@
 import json
-import os
 import socket
-import subprocess
 import tempfile
 import time
+from threading import Thread
+
+from common.core.dali_server import run
 
 from selenium.webdriver import Remote
 from thrift.Thrift import TException
@@ -40,7 +41,6 @@ class Options(TOptions):
 
 
 class Dali(object):
-    DALI_SERVER_PATH = os.path.dirname(os.path.abspath(__file__)) + "/common/core/dali_server.py"
     CONNECTION_TIMEOUT = 5  # in seconds
 
     def __init__(self, driver):
@@ -48,14 +48,12 @@ class Dali(object):
         :type driver: Remote
         """
         port = get_free_port()
-        server_process = subprocess.Popen([
-            "python",
-            self.DALI_SERVER_PATH,
-            "--port=%d" % port,
-        ])
+        self.server = Thread(target=run, args=(port,))
+        self.server.daemon = True
+        self.server.start()
 
         ### @todo add returncode managment
-        if server_process.returncode:
+        if not self.server.isAlive():
             raise Exception("Server didn't start")
         else:
             pass
@@ -86,6 +84,7 @@ class Dali(object):
         except TTransport.TTransportException:
             pass
         self.transport.close()
+        self.server.join()
 
     def run_scenario(self, scenario=None, scenario_args=None):
         if callable(scenario):
